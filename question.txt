@@ -1,0 +1,63 @@
+Given a set of Add, Modify and Delete order operations build the limit order book.
+Order book is a level-2 book, with the total size and order count at each price level.
+Input is a text file, with one order op per line (Add, Mod or Del); fields are pipe (‘|’) delimited.
+Note: side is either S or B (Sell or Buy respectively); op is A, M or D (Add, Mod or Del respectively).
+Note: input contains many symbols.
+ 
+ 
+Sample Add order op (Symbol|Op|Side|OrderId|OrderSize|OrderPrice):
+ABB|A|S|343453|5800|21.1300
+ 
+Sample Mod order op (Symbol|Op|OrderId|NewOrderSize|NewOrderPrice):
+ABB|M|343453|100|21.1300
+ 
+Sample Del order op (Symbol|Op|OrderId):
+ABB|D|343453
+ 
+Provide a “print” facility to print both sides of the book, given a symbol.
+ 
+Note: please ask for clarification, should anything be unclear, _before_ submitting the code.
+ 
+Please don’t use any c++ facilities not present in c++98.
+Please put the code on GitHub where we can access it.
+
+1.       All capital letters
+2.       Depth is not limited
+3.       Each op comes with the order number it applies to. If no order with given order number exists, the op must be rejected.
+4.       Print best buy, best sell, followed by second best buy, and second best sell, and so on.
+5.       It can be called at any time (between order ops), but you don’t call it; just provide the definition.
+6.       No. You only need to keep track of the total size and number of orders –this is what the “level-2” book is.
+ 
+The format of the printout is not really important, but it would be nice to have it in the form where it is easy to “see” the book.
+Perhaps:
+ 
+                OrderCtn TotalSz Price – Price TotalSz OrderCnt (3 450 43.55 – 43.56 100 1)
+ 
+Bid on the left of ‘-‘, Ask on the right, starting with best bid and best offer on line 1, followed by second best bid and second best offer on line 2, and so on.
+
+
+Several Questions:
+
+1. Can ticker symbol be assumed all "Capital Letter", or just "Letter", or just "Number or Letter", or no assumption?
+
+2. Is depth of the book limited to something like "10", or it is unlimited? Is there any maximum depth?
+
+3. If op Mod/Del order comes before op Add (probably out of sequence), should I ignore the Mod/Del, or I need to cache the Mod/Del op until we receive the Add op, then process after the Add op.
+But if op Mol and Del are out of sequence, cache approach will not work. What's the rule for this situation?
+
+4. I assume when we print out, we need to print in a best BUY price and best SELL price order? 
+
+5. How often "print" function is used? Do we need to print after every update?
+
+6. As mentioned, at each price level, it is the total size and order count. So if two orders in the same side have the same price, for example, 
+ABB|A|S|343453|100|21.1300
+ABB|A|S|343454|200|21.1300
+
+total size is 300, and order count 2. 
+
+But do I also need to print out each order, or just "price, total size, order count"?
+
+I assume the following format. Can you give an example format of the printout if you prefer?
+
+ABB|BuyPrice1,BuySize1,BuyOrderCount1,BuyPrice2,BuySize2,BuyOrderCount2,...|SellPrice1,SellSize1,SellOrderCount1,SellPrice2,SellSize2,SellOrderCount2,...
+
